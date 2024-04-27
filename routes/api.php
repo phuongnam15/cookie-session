@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LocaleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -32,11 +33,6 @@ Route::group([
 
 });
 
-Route::get('/session/put', function() {
-    session()->put('language', 'vietnam');
-    return response()->json(['message' => 'session put']);
-});
-Route::get('/session/get', function() {
-    logger(session()->all());
-    return response()->json(['language' => session('language')]);
-});
+Route::get('/session/put', [LocaleController::class, 'setLanguage'] );
+
+Route::get('/session/get', [LocaleController::class, 'getLanguage']);
